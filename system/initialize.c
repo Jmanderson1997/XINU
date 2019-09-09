@@ -180,6 +180,7 @@ static	void	sysinit()
 		prptr->prname[0] = NULLCH;
 		prptr->prstkbase = NULL;
 		prptr->prprio = 0;
+		prptr->time_init = 0; 
 	}
 
 	/* Initialize the Null process entry */	
@@ -192,6 +193,7 @@ static	void	sysinit()
 	prptr->prstklen = NULLSTK;
 	prptr->prstkptr = 0;
 	currpid = NULLPROC;
+	prptr->time_init = ctr1000; 
 	
 	/* Initialize semaphores */
 

@@ -12,6 +12,7 @@ shellcmd xsh_ps(int nargs, char *args[])
 {
 	struct	procent	*prptr;		/* pointer to process		*/
 	int32	i;			/* index into proctabl		*/
+	int32  time = ctr1000; 
 	char *pstate[]	= {		/* names for process states	*/
 		"free ", "curr ", "ready", "recv ", "sleep", "susp ",
 		"wait ", "rtime"};
@@ -38,13 +39,13 @@ shellcmd xsh_ps(int nargs, char *args[])
 
 	/* Print header for items from the process table */
 
-	printf("%3s %-16s %5s %4s %4s %10s %-10s %10s\n",
+	printf("%3s %-16s %5s %4s %4s %10s %-10s %10s %14s\n",
 		   "Pid", "Name", "State", "Prio", "Ppid", "Stack Base",
-		   "Stack Ptr", "Stack Size");
+		   "Stack Ptr", "Stack Size", "Time elapsed (ms)");
 
-	printf("%3s %-16s %5s %4s %4s %10s %-10s %10s\n",
+	printf("%3s %-16s %5s %4s %4s %10s %-10s %10s %14s\n",
 		   "---", "----------------", "-----", "----", "----",
-		   "----------", "----------", "----------");
+		   "----------", "----------", "----------", "--------------");
 
 	/* Output information for each process */
 
@@ -53,10 +54,10 @@ shellcmd xsh_ps(int nargs, char *args[])
 		if (prptr->prstate == PR_FREE) {  /* skip unused slots	*/
 			continue;
 		}
-		printf("%3d %-16s %s %4d %4d 0x%08X 0x%08X %8d\n",
+		printf("%3d %-16s %s %4d %4d 0x%08X 0x%08X %8d %8d\n",
 			i, prptr->prname, pstate[(int)prptr->prstate],
 			prptr->prprio, prptr->prparent, prptr->prstkbase,
-			prptr->prstkptr, prptr->prstklen);
+			prptr->prstkptr, prptr->prstklen, time - prptr->time_init);
 	}
 	return 0;
 }
