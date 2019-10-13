@@ -1,0 +1,6 @@
+*.o
+tmp
+binaries 
+system/testcases
+system/lottery_testcases.tar
+

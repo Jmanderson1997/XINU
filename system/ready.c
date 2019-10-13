@@ -27,3 +27,19 @@ status	ready(
 
 	return OK;
 }
+
+syscall print_ready_list(){
+	kprintf("calls\n");
+
+	int16	curr;			/* Runs through items in a queue*/
+
+	curr = firstid(readylist);
+	while (1) {
+		kprintf("%d\n", curr);
+		if(curr == lastid(readylist)){
+			break; 
+		}
+		curr = queuetab[curr].qnext;
+	}
+
+}

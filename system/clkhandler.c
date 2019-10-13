@@ -22,6 +22,8 @@ void	clkhandler()
 
 		count1000 = 1000;
 	}
+	ctr1000++; 
+	proctab[currpid].runtime++; 
 
 	/* Handle sleeping processes if any exist */
 

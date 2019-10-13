@@ -607,6 +607,20 @@ extern	void	xdone(void);
 /* in file yield.c */
 extern	syscall	yield(void);
 
+/* in file print.c*/
+extern void sync_printf(char *fmt, ...);
+
+/*in project2.c*/
+extern pid32 create_user_process(
+	void	*funcaddr, 
+	uint32 	ssize, 
+	char 	*name, 
+	uint32	nargs,
+	...);
+extern void burst_execution(uint32 number_bursts, uint32 burst_duration, uint32 sleep_duration);
+extern void set_tickets(pid32 pid,uint32 tickets);
+extern uint32 process_tickets[NPROC]; 
+
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
 #define	htonl(x)  ((((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \

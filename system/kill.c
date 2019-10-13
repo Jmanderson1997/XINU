@@ -34,6 +34,8 @@ syscall	kill(
 	switch (prptr->prstate) {
 	case PR_CURR:
 		prptr->prstate = PR_FREE;	/* Suicide */
+		prptr->turnaroundtime = ctr1000 - prptr->time_created;
+		//sync_printf("process %d teriminated\n", pid);
 		resched();
 
 	case PR_SLEEP:
@@ -53,7 +55,6 @@ syscall	kill(
 	default:
 		prptr->prstate = PR_FREE;
 	}
-
 	restore(mask);
 	return OK;
 }
