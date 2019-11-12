@@ -56,6 +56,7 @@ struct procent {		/* Entry in the process table		*/
 	pri16 	initial_prio; 
 	uint32  runtime; 
 	uint32  runtime_start; 
+	uint32  lock_causing_wait; 
 };
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/

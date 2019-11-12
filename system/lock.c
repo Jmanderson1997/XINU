@@ -12,7 +12,6 @@ syscall initlock(lock_t *l){
 	l->guard = 0;
 	l->queue = newqueue(); 
 	active_locks++; 
-	sync_printf("creation value: %d, empty:%d, firstid:%d\n", l->queue, isempty(l->queue), firstid(l->queue));
 	return OK;  
 }
 
@@ -23,16 +22,12 @@ syscall lock(lock_t *l){
 		sleepms(QUANTUM);
 	}
 	if(l->flag == 0){
-		sync_printf("process %d aquired lock\n", currpid);
-		sync_printf("value:%d, first: %d\n",l->queue, firstid(l->queue) );
 		l->flag = 1; 
-		l->guard = 0; 
 		l->owner = currpid; 
+		l->guard = 0; 
 	}
 	else{
 		proctab[currpid].about_to_park = 1; 
-		sync_printf("process %d inserted in queue\n", currpid);
-		sync_printf("value:%d, first: %d\n",l->queue, firstid(l->queue) );
 		enqueue(currpid, l->queue); 
 		l->guard = 0; 
 		park(); 
@@ -49,20 +44,16 @@ syscall unlock(lock_t *l){
 	while(test_and_set(&l->guard, 1) == 1){
 		sleepms(QUANTUM);
 	} 
-	sync_printf("process %d released lock\n", currpid);
-	sync_printf("value:%d, first: %d\n",l->queue, firstid(l->queue) );
 	if(isempty(l->queue)){
-		sync_printf("queue empty\n");
-		l->guard = 0; 
 		l->flag = 0; 
 		l->owner = 0; 
+		l->guard = 0; 
 	}
 	else{
-		l->guard = 0; 
 		pid32 pid = dequeue(l->queue); 
-		sync_printf("process %d next\n", pid);
 		l->owner = pid; 
 		unpark(pid); 
+		l->guard = 0; 
 	} 
 	return OK; 
 }

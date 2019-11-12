@@ -53,6 +53,7 @@ pid32	create(
 	prptr->runtime_start = 0; 
 	prptr->about_to_park = 0; 
 	prptr->initial_prio = priority;
+	prptr->lock_causing_wait = NOLOCK; 
 
 	/* Set up stdin, stdout, and stderr descriptors for the shell	*/
 	prptr->prdesc[0] = CONSOLE;

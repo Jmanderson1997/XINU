@@ -608,7 +608,7 @@ extern	void	xdone(void);
 extern	syscall	yield(void);
 
 /* in file testandset.S */
-extern uint32 test_and_set(uint16*, uint16);
+extern uint32 test_and_set(uint32*, uint32);
 
 /* in file spinlock.c */
 extern syscall sl_initlock(struct sl_lock_t *);
@@ -629,10 +629,13 @@ extern syscall pi_lock(struct pi_lock_t *);
 extern syscall pi_unlock(struct pi_lock_t *);
 
 /* in file parking.c */
-void park(void); 
-void unpark(pid32);
-void priopark(void);
-void priounpark(pid32); 
+extern void park(void); 
+extern void unpark(pid32);
+
+/* prio_inheritance.c */ 
+extern void set_priority(pid32, pri16);  
+extern void set_new_priority_owner(pi_lock_t *, pid32);
+extern void restore_priority(pid32);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
