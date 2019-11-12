@@ -23,6 +23,9 @@ void	clkhandler()
 		count1000 = 1000;
 	}
 
+	ctr1000++;
+	if(proctab[currpid].runtime == 0){proctab[currpid].runtime_start = ctr1000;}
+	proctab[currpid].runtime++;
 	/* Handle sleeping processes if any exist */
 
 	if(!isempty(sleepq)) {

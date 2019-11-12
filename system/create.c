@@ -49,6 +49,10 @@ pid32	create(
 	prptr->prsem = -1;
 	prptr->prparent = (pid32)getpid();
 	prptr->prhasmsg = FALSE;
+	prptr->runtime = 0; 
+	prptr->runtime_start = 0; 
+	prptr->about_to_park = 0; 
+	prptr->initial_prio = priority;
 
 	/* Set up stdin, stdout, and stderr descriptors for the shell	*/
 	prptr->prdesc[0] = CONSOLE;

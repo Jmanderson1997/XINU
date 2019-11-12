@@ -13,6 +13,7 @@ qid16	newqueue(void)
 
 	q = nextqid;
 	if (q >= NQENT) {		/* Check for table overflow	*/
+		sync_printf("too many table\n");
 		return SYSERR;
 	}
 

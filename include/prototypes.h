@@ -607,6 +607,34 @@ extern	void	xdone(void);
 /* in file yield.c */
 extern	syscall	yield(void);
 
+/* in file testandset.S */
+extern uint32 test_and_set(uint16*, uint16);
+
+/* in file spinlock.c */
+extern syscall sl_initlock(struct sl_lock_t *);
+extern syscall sl_lock(struct sl_lock_t *);
+extern syscall sl_unlock(struct sl_lock_t *);
+
+/* in file spinlock.c */
+extern void sync_printf(char *fmt, ...);
+
+/* in file lock.c */
+extern syscall initlock(struct lock_t *);
+extern syscall lock(struct lock_t *);
+extern syscall unlock(struct lock_t *);
+
+/* in file pi_lock.c */
+extern syscall pi_initlock(struct pi_lock_t *); 
+extern syscall pi_lock(struct pi_lock_t *);
+extern syscall pi_unlock(struct pi_lock_t *);
+
+/* in file parking.c */
+void park(void); 
+void unpark(pid32);
+void priopark(void);
+void priounpark(pid32); 
+
+
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)  ((0xff & ((x)>>8)) | ((0xff & (x)) << 8))
 #define	htonl(x)  ((((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
